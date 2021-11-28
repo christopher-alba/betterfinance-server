@@ -13,7 +13,12 @@ const typeDefs = gql(
 // that together define the "shape" of queries that are executed against
 // your data.
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+});
 
 // The `listen` method launches a web server.
 server.listen(5000 || process.env.PORT).then(({ url }) => {
