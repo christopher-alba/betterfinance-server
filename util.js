@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { User } = require("./mongodb/models");
 
 const encryptPassword = (password) =>
   new Promise((resolve, reject) => {
@@ -38,10 +39,17 @@ const getToken = (payload) => {
   return token;
 };
 
-const getPayload = (token) => {
+const getPayload = async (token) => {
   try {
-    const payload = jwt.verify(token, "secretString");
-    return { loggedIn: true, payload };
+    const user = await User.findOne({
+      token,
+    });
+    if (user) {
+      const payload = jwt.verify(token, "secretString");
+      return { loggedIn: true, payload };
+    } else {
+      return { loggedIn: false };
+    }
   } catch (err) {
     return { loggedIn: false };
   }

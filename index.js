@@ -10,26 +10,23 @@ const typeDefs = gql(
     encoding: "utf8",
   })
 );
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
   playground: true,
-  context: ({ req }) => {
+  context: async ({ req }) => {
     // get the user token from the headers
     const token = req.headers.authorization || "";
     // try to retrieve a user with the token
-    const { payload: user, loggedIn } = getPayload(token);
+    const response = await getPayload(token);
     // add the user to the context
     const returnPayload = {
-      ...user,
+      ...response?.payload,
       token,
     };
-    return { user: returnPayload, loggedIn };
+    return { user: returnPayload, loggedIn: response?.loggedIn };
   },
 });
 
