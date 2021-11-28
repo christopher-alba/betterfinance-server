@@ -1,6 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { resolve } = require("path");
 const { readFileSync } = require("fs");
+const { getPayload } = require("./util");
 const { resolvers } = require("./graphql/resolvers");
 require("./mongodb/connect");
 
@@ -18,6 +19,18 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  context: ({ req }) => {
+    // get the user token from the headers
+    const token = req.headers.authorization || "";
+    // try to retrieve a user with the token
+    const { payload: user, loggedIn } = getPayload(token);
+    // add the user to the context
+    const returnPayload = {
+      ...user,
+      token,
+    };
+    return { user: returnPayload, loggedIn };
+  },
 });
 
 // The `listen` method launches a web server.

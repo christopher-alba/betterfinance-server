@@ -1,8 +1,15 @@
-type Book {
-  title: String
-  author: String
+type Query {
+  me: User
 }
 
-type Query {
-  books: [Book]
+type Mutation {
+  register(username: String!, password: String!): User
+  login(username: String!, password: String!): User
+}
+
+type User {
+  _id: ID!
+  username: String!
+  password: String!
+  token: String
 }
