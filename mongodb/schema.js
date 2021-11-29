@@ -6,6 +6,53 @@ const userSchema = new mongoose.Schema({
   token: String,
 });
 
+const profileSchema = new mongoose.Schema({
+  email: String,
+  incomesIDs: [String],
+  expensesIDs: [String],
+  goalsIDs: [String],
+  userID: String,
+});
+
+const incomeSchema = new mongoose.Schema({
+  name: String,
+  amount: Number,
+  frequency: {
+    type: String,
+    enum: ["Daily", "Weekly", "Monthly", "Yearly"],
+  },
+  active: Boolean,
+  profileID: String,
+});
+
+const expensesSchema = new mongoose.Schema({
+  name: String,
+  amount: Number,
+  frequency: {
+    type: String,
+    enum: ["Daily", "Weekly", "Monthly", "Yearly"],
+  },
+  active: Boolean,
+  profileID: String,
+});
+
+const goalsSchema = new mongoose.Schema({
+  name: String,
+  targetAmount: Number,
+  completionDate: Date,
+  contributionAmount: Number,
+  contributionFrequency: {
+    type: String,
+    enum: ["Daily", "Weekly", "Monthly", "Yearly"],
+  },
+  active: Boolean,
+  profileID: String,
+});
+
 module.exports = {
   userSchema,
+  profileSchema,
+  incomeSchema,
+  expensesSchema,
+  goalsSchema,
 };
