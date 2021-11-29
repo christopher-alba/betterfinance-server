@@ -11,7 +11,8 @@ const createIncome = async (incomeObj) => {
 
 const updateIncome = async (incomeObj, incomeID) => {
   try {
-    const res = await Income.updateOne({ _id: incomeID }, incomeObj);
+    await Income.updateOne({ _id: incomeID }, incomeObj);
+    const res = await Income.findOne({ _id: incomeID });
     return res;
   } catch (err) {
     return new Error(err.message);

@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const { createProfile } = require("../db/profile");
 const { getToken, encryptPassword, comparePassword } = require("../../util");
 
 const register = async (args) => {
@@ -20,6 +21,11 @@ const register = async (args) => {
     const user = new User({ ...newUser });
     const res = await user.save();
     const token = getToken({ username: res.username });
+    const newProfile = {
+      email: args.email,
+      userID: res._id,
+    };
+    await createProfile(newProfile);
     await User.updateOne(
       { _id: res._id },
       {

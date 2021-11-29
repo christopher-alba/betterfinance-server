@@ -1,17 +1,27 @@
 type Query {
   me: User
   getAllUserIncomes(profileID: ID!): [Income]
+  getProfile(userID: ID!): Profile
 }
 
 type Mutation {
-  register(username: String!, password: String!): User
+  register(username: String!, password: String!, email: String!): User
   login(username: String!, password: String!): User
+  createProfile(profileObj: createProfileArgs!): Profile
+  updateProfile(profileObj: updateProfileArgs!, profileID: ID!): Profile
   createIncome(income: createIncomeArgs!): Income
   updateIncome(income: updateIncomeArgs!, incomeID: String!): Income
   deleteIncome(incomeID: String!): Int
   deleteAllUserIncomes(profileID: ID!): Int
 }
 
+input createProfileArgs {
+  email: String!
+  userID: String!
+}
+input updateProfileArgs {
+  email: String
+}
 input createIncomeArgs {
   name: String!
   amount: Float!
@@ -31,14 +41,13 @@ type User {
   username: String!
   password: String!
   token: String!
+  _id: ID!
 }
 
 type Profile {
   email: String!
-  incomeIDs: [String]!
-  expensesIDs: [String]!
-  goalsIDs: [String]!
   userID: String!
+  _id: ID!
 }
 
 type Income {

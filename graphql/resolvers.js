@@ -1,5 +1,10 @@
 const { register, login } = require("../mongodb/db/auth");
 const {
+  getProfile,
+  createProfile,
+  updateProfile,
+} = require("../mongodb/db/profile");
+const {
   createIncome,
   updateIncome,
   deleteIncome,
@@ -13,6 +18,13 @@ exports.resolvers = {
     me: (parent, args, context, info) => {
       if (context.loggedIn) {
         return context.user;
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    getProfile: (parent, args, context, info) => {
+      if (!context.loggedIn) {
+        return getProfile(args).then((res) => res);
       } else {
         throw new AuthenticationError("Please Login.");
       }
@@ -41,6 +53,22 @@ exports.resolvers = {
           ...res,
         };
       });
+    },
+    createProfile: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return createProfile(args).then((res) => res);
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    updateProfile: (parent, args, context, info) => {
+      if (!context.loggedIn) {
+        return updateProfile(args.profileObj, args.profileID).then(
+          (res) => res
+        );
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
     },
     createIncome: (parent, args, context, info) => {
       if (context.loggedIn) {
