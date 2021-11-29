@@ -8,9 +8,6 @@ const userSchema = new mongoose.Schema({
 
 const profileSchema = new mongoose.Schema({
   email: String,
-  incomesIDs: [String],
-  expensesIDs: [String],
-  goalsIDs: [String],
   userID: String,
 });
 
