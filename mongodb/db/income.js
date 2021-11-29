@@ -39,6 +39,7 @@ const deleteAllUserIncomes = async (profileID) => {
 const getAllUserIncomes = async (profileID) => {
   try {
     const res = await Income.find({ profileID: profileID });
+    return res;
   } catch (err) {
     return new Error(err.message);
   }
