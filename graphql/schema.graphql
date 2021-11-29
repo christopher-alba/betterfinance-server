@@ -1,10 +1,30 @@
 type Query {
   me: User
+  getAllUserIncomes(profileID: ID!): [Income]
 }
 
 type Mutation {
   register(username: String!, password: String!): User
   login(username: String!, password: String!): User
+  createIncome(income: createIncomeArgs!): Income
+  updateIncome(income: updateIncomeArgs!, incomeID: String!): Income
+  deleteIncome(incomeID: String!): Int
+  deleteAllUserIncomes(profileID: ID!): Int
+}
+
+input createIncomeArgs {
+  name: String!
+  amount: Float!
+  frequency: Frequency!
+  active: Boolean!
+  profileID: ID!
+}
+
+input updateIncomeArgs {
+  name: String
+  amount: Float
+  frequency: Frequency
+  active: Boolean
 }
 
 type User {

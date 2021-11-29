@@ -36,9 +36,18 @@ const deleteAllUserIncomes = async (profileID) => {
   }
 };
 
+const getAllUserIncomes = async (profileID) => {
+  try {
+    const res = await Income.find({ profileID: profileID });
+  } catch (err) {
+    return new Error(err.message);
+  }
+};
+
 module.exports = {
   createIncome,
   updateIncome,
   deleteIncome,
   deleteAllUserIncomes,
+  getAllUserIncomes,
 };
