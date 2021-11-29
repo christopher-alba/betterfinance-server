@@ -8,8 +8,48 @@ type Mutation {
 }
 
 type User {
-  _id: ID!
   username: String!
   password: String!
-  token: String
+  token: String!
+}
+
+type Profile {
+  email: String!
+  incomeIDs: [String]!
+  expensesIDs: [String]!
+  goalsIDs: [String]!
+  userID: String!
+}
+
+type Income {
+  name: String!
+  amount: Float!
+  frequency: Frequency!
+  active: Boolean!
+  profileID: ID!
+}
+
+type Expense {
+  name: String!
+  amount: Float!
+  frequency: Frequency!
+  active: Boolean!
+  profileID: ID!
+}
+
+type Goal {
+  name: String!
+  targetAmount: Float!
+  completionDate: String!
+  contributionAmount: Float!
+  contributionFrequency: Frequency!
+  active: Boolean!
+  profileID: ID!
+}
+
+enum Frequency {
+  Daily
+  Weekly
+  Monthly
+  Yearly
 }
