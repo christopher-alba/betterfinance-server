@@ -23,7 +23,8 @@ exports.resolvers = {
       }
     },
     getProfile: (parent, args, context, info) => {
-      if (!context.loggedIn) {
+      console.log(context);
+      if (context.loggedIn) {
         return getProfile(args).then((res) => res);
       } else {
         throw new AuthenticationError("Please Login.");
@@ -62,7 +63,7 @@ exports.resolvers = {
       }
     },
     updateProfile: (parent, args, context, info) => {
-      if (!context.loggedIn) {
+      if (context.loggedIn) {
         return updateProfile(args.profileObj, args.profileID).then(
           (res) => res
         );
