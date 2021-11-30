@@ -2,7 +2,7 @@ const { Income } = require("../models");
 
 const createIncome = async (incomeObj) => {
   try {
-    const res = await Income.create(incomeObj);
+    const res = await Income.create(incomeObj.income);
     return res;
   } catch (err) {
     return new Error(err.message);
@@ -22,7 +22,7 @@ const updateIncome = async (incomeObj, incomeID) => {
 const deleteIncome = async (incomeID) => {
   try {
     const res = await Income.deleteOne({ _id: incomeID });
-    return res;
+    return res.deletedCount;
   } catch (err) {
     return new Error(err.message);
   }
@@ -31,7 +31,7 @@ const deleteIncome = async (incomeID) => {
 const deleteAllUserIncomes = async (profileID) => {
   try {
     const res = await Income.deleteMany({ profileID: profileID });
-    return res;
+    return res.deletedCount;
   } catch (err) {
     return new Error(err.message);
   }

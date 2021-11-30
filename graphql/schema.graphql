@@ -7,10 +7,9 @@ type Query {
 type Mutation {
   register(username: String!, password: String!, email: String!): User
   login(username: String!, password: String!): User
-  createProfile(profileObj: createProfileArgs!): Profile
   updateProfile(profileObj: updateProfileArgs!, profileID: ID!): Profile
   createIncome(income: createIncomeArgs!): Income
-  updateIncome(income: updateIncomeArgs!, incomeID: String!): Income
+  updateIncome(incomeObj: updateIncomeArgs!, incomeID: String!): Income
   deleteIncome(incomeID: String!): Int
   deleteAllUserIncomes(profileID: ID!): Int
 }
@@ -23,10 +22,10 @@ input updateProfileArgs {
   email: String
 }
 input createIncomeArgs {
-  name: String!
+  name: String! 
   amount: Float!
   frequency: Frequency!
-  active: Boolean!
+  active: Boolean! = true
   profileID: ID!
 }
 

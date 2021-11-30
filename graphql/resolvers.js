@@ -23,7 +23,6 @@ exports.resolvers = {
       }
     },
     getProfile: (parent, args, context, info) => {
-      console.log(context);
       if (context.loggedIn) {
         return getProfile(args).then((res) => res);
       } else {
@@ -32,7 +31,7 @@ exports.resolvers = {
     },
     getAllUserIncomes: (parent, args, context, info) => {
       if (context.loggedIn) {
-        return getAllUserIncomes(args).then((res) => {
+        return getAllUserIncomes(args.profileID).then((res) => {
           return res;
         });
       } else {
@@ -54,13 +53,6 @@ exports.resolvers = {
           ...res,
         };
       });
-    },
-    createProfile: (parent, args, context, info) => {
-      if (context.loggedIn) {
-        return createProfile(args).then((res) => res);
-      } else {
-        throw new AuthenticationError("Please Login.");
-      }
     },
     updateProfile: (parent, args, context, info) => {
       if (context.loggedIn) {
@@ -91,7 +83,7 @@ exports.resolvers = {
     },
     deleteIncome: (parent, args, context, info) => {
       if (context.loggedIn) {
-        return deleteIncome(args).then((res) => {
+        return deleteIncome(args.incomeID).then((res) => {
           return res;
         });
       } else {
@@ -100,7 +92,7 @@ exports.resolvers = {
     },
     deleteAllUserIncomes: (parent, args, context, info) => {
       if (context.loggedIn) {
-        return deleteAllUserIncomes(args).then((res) => {
+        return deleteAllUserIncomes(args.profileID).then((res) => {
           return res;
         });
       } else {
