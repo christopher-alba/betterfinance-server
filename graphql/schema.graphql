@@ -1,7 +1,8 @@
 type Query {
   me: User
-  getAllUserIncomes(profileID: ID!): [Income]
   getProfile(userID: ID!): Profile
+  getAllUserIncomes(profileID: ID!): [Income]
+  getAllUserExpenses(profileID: ID!): [Expense]
 }
 
 type Mutation {
@@ -12,6 +13,10 @@ type Mutation {
   updateIncome(incomeObj: updateIncomeArgs!, incomeID: String!): Income
   deleteIncome(incomeID: String!): Int
   deleteAllUserIncomes(profileID: ID!): Int
+  createExpense(expense: createExpenseArgs!): Expense
+  updateExpense(expenseObj: updateExpenseArgs!, ExpenseID: String!): Expense
+  deleteExpense(expenseID: String!): Int
+  deleteAllUserExpenses(profileID: ID!): Int
 }
 
 input createProfileArgs {
