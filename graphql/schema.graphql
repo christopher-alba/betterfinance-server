@@ -14,7 +14,7 @@ type Mutation {
   deleteIncome(incomeID: String!): Int
   deleteAllUserIncomes(profileID: ID!): Int
   createExpense(expense: createExpenseArgs!): Expense
-  updateExpense(expenseObj: updateExpenseArgs!, ExpenseID: String!): Expense
+  updateExpense(expenseObj: updateExpenseArgs!, expenseID: String!): Expense
   deleteExpense(expenseID: String!): Int
   deleteAllUserExpenses(profileID: ID!): Int
 }
@@ -41,6 +41,21 @@ input updateIncomeArgs {
   active: Boolean
 }
 
+input createExpenseArgs {
+  name: String! 
+  amount: Float!
+  frequency: Frequency!
+  active: Boolean! = true
+  profileID: ID!
+}
+
+input updateExpenseArgs {
+  name: String
+  amount: Float
+  frequency: Frequency
+  active: Boolean
+}
+
 type User {
   username: String!
   password: String!
@@ -60,6 +75,7 @@ type Income {
   frequency: Frequency!
   active: Boolean!
   profileID: ID!
+  _id: ID!
 }
 
 type Expense {
@@ -68,6 +84,7 @@ type Expense {
   frequency: Frequency!
   active: Boolean!
   profileID: ID!
+  _id: ID!
 }
 
 type Goal {
@@ -78,6 +95,7 @@ type Goal {
   contributionFrequency: Frequency!
   active: Boolean!
   profileID: ID!
+  _id: ID!
 }
 
 enum Frequency {

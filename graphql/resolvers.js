@@ -1,7 +1,6 @@
 const { register, login } = require("../mongodb/db/auth");
 const {
   getProfile,
-  createProfile,
   updateProfile,
 } = require("../mongodb/db/profile");
 const {
@@ -11,6 +10,13 @@ const {
   deleteAllUserIncomes,
   getAllUserIncomes,
 } = require("../mongodb/db/income");
+const {
+  getAllUserExpenses,
+  deleteAllUserExpenses,
+  deleteExpense,
+  updateExpense,
+  createExpense,
+} = require("../mongodb/db/expense");
 const { AuthenticationError } = require("apollo-server");
 
 exports.resolvers = {
@@ -32,6 +38,15 @@ exports.resolvers = {
     getAllUserIncomes: (parent, args, context, info) => {
       if (context.loggedIn) {
         return getAllUserIncomes(args.profileID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    getAllUserExpenses: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return getAllUserExpenses(args.profileID).then((res) => {
           return res;
         });
       } else {
@@ -93,6 +108,42 @@ exports.resolvers = {
     deleteAllUserIncomes: (parent, args, context, info) => {
       if (context.loggedIn) {
         return deleteAllUserIncomes(args.profileID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    createExpense: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return createExpense(args).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    updateExpense: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return updateExpense(args.expenseObj, args.expenseID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    deleteExpense: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return deleteExpense(args.expenseID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    deleteAllUserExpenses: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return deleteAllUserExpenses(args.profileID).then((res) => {
           return res;
         });
       } else {
