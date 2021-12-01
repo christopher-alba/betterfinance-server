@@ -3,6 +3,7 @@ type Query {
   getProfile(userID: ID!): Profile
   getAllUserIncomes(profileID: ID!): [Income]
   getAllUserExpenses(profileID: ID!): [Expense]
+  getAllUserGoals(profileID: ID!): [Goal]
 }
 
 type Mutation {
@@ -17,6 +18,10 @@ type Mutation {
   updateExpense(expenseObj: updateExpenseArgs!, expenseID: String!): Expense
   deleteExpense(expenseID: String!): Int
   deleteAllUserExpenses(profileID: ID!): Int
+  createGoal(goal: createGoalArgs!): Goal
+  updateGoal(goalObj: updateGoalArgs!, goalID: String!): Goal
+  deleteGoal(goalID: String!): Int
+  deleteAllUserGoals(profileID: ID!): Int
 }
 
 input createProfileArgs {
@@ -55,6 +60,26 @@ input updateExpenseArgs {
   frequency: Frequency
   active: Boolean
 }
+
+input createGoalArgs {
+  name: String!
+  targetAmount: Float!
+  completionDate: String!
+  contributionAmount: Float!
+  contributionFrequency: Frequency!
+  active: Boolean! = true
+  profileID: ID!
+}
+
+input updateGoalArgs {
+  name: String
+  targetAmount: Float
+  completionDate: String
+  contributionAmount: Float
+  contributionFrequency: Frequency
+  active: Boolean
+}
+
 
 type User {
   username: String!

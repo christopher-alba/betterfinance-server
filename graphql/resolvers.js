@@ -17,6 +17,7 @@ const {
   updateExpense,
   createExpense,
 } = require("../mongodb/db/expense");
+const { getAllUserGoals, createGoal, updateGoal, deleteGoal, deleteAllUserGoals } = require("../mongodb/db/goals");
 const { AuthenticationError } = require("apollo-server");
 
 exports.resolvers = {
@@ -47,6 +48,15 @@ exports.resolvers = {
     getAllUserExpenses: (parent, args, context, info) => {
       if (context.loggedIn) {
         return getAllUserExpenses(args.profileID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    getAllUserGoals: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return getAllUserGoals(args.profileID).then((res) => {
           return res;
         });
       } else {
@@ -144,6 +154,42 @@ exports.resolvers = {
     deleteAllUserExpenses: (parent, args, context, info) => {
       if (context.loggedIn) {
         return deleteAllUserExpenses(args.profileID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    createGoal: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return createGoal(args).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    updateGoal: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return updateGoal(args.goalObj, args.goalID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    deleteGoal: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return deleteGoal(args.goalID).then((res) => {
+          return res;
+        });
+      } else {
+        throw new AuthenticationError("Please Login.");
+      }
+    },
+    deleteAllUserGoals: (parent, args, context, info) => {
+      if (context.loggedIn) {
+        return deleteAllUserGoals(args.profileID).then((res) => {
           return res;
         });
       } else {
