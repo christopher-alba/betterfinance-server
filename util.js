@@ -45,8 +45,8 @@ const getPayload = async (token) => {
       token,
     });
     if (user) {
-      const payload = jwt.verify(token, "secretString");
-      return { loggedIn: true, payload };
+      jwt.verify(token, "secretString");
+      return { loggedIn: true, payload: user };
     } else {
       return { loggedIn: false };
     }

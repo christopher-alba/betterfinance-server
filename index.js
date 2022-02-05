@@ -22,11 +22,7 @@ const server = new ApolloServer({
     // try to retrieve a user with the token
     const response = await getPayload(token);
     // add the user to the context
-    const returnPayload = {
-      ...response?.payload,
-      token,
-    };
-    return { user: returnPayload, loggedIn: response?.loggedIn };
+    return { user: response.payload, loggedIn: response?.loggedIn };
   },
 });
 
