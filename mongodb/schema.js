@@ -36,6 +36,7 @@ const expensesSchema = new mongoose.Schema({
 const goalsSchema = new mongoose.Schema({
   name: String,
   targetAmount: Number,
+  currentAmount: Number,
   completionDate: Date,
   contributionAmount: Number,
   contributionFrequency: {

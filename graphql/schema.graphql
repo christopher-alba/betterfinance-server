@@ -32,7 +32,7 @@ input updateProfileArgs {
   email: String
 }
 input createIncomeArgs {
-  name: String! 
+  name: String!
   amount: Float!
   frequency: Frequency!
   active: Boolean! = true
@@ -47,7 +47,7 @@ input updateIncomeArgs {
 }
 
 input createExpenseArgs {
-  name: String! 
+  name: String!
   amount: Float!
   frequency: Frequency!
   active: Boolean! = true
@@ -64,6 +64,7 @@ input updateExpenseArgs {
 input createGoalArgs {
   name: String!
   targetAmount: Float!
+  currentAmount: Float! = 0
   completionDate: String!
   contributionAmount: Float!
   contributionFrequency: Frequency!
@@ -74,12 +75,12 @@ input createGoalArgs {
 input updateGoalArgs {
   name: String
   targetAmount: Float
+  currentAmount: Float
   completionDate: String
   contributionAmount: Float
   contributionFrequency: Frequency
   active: Boolean
 }
-
 
 type User {
   username: String!
@@ -115,6 +116,7 @@ type Expense {
 type Goal {
   name: String!
   targetAmount: Float!
+  currentAmount: Float!
   completionDate: String!
   contributionAmount: Float!
   contributionFrequency: Frequency!
