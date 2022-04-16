@@ -19,6 +19,14 @@ const createGoal = async (goalObj) => {
 
 const updateGoal = async (goalObj, goalID) => {
   try {
+    if (
+      new Date(goalObj.goal.completionDate) <
+      new Date(Date.now() + 1000 * 60 * 60 * 24 * 2)
+    ) {
+      throw new Error(
+        "target completion date is invalid - set to the past, not future"
+      );
+    }
     await Goal.updateOne({ _id: goalID }, goalObj);
     const res = await Goal.findOne({ _id: goalID });
     return res;
